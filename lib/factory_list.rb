@@ -1,5 +1,6 @@
 require "factory_list/version"
 require 'factory_bot'
+require 'ripper'
 
 module FactoryList
   class Error < StandardError; end
@@ -12,7 +13,7 @@ module FactoryList
         puts "file: #{file}"
         file_path = File.join(dir, file)
         File.open(file_path, 'r') do |f|
-          tokens = Ripper.tokenize(f.read)
+          tokens = ::Ripper.tokenize(f.read)
           tokens.each_with_index do |token, i|
             if token == 'factory'
               factory = tokens[i + 3]
